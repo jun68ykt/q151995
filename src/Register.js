@@ -45,23 +45,19 @@ class Register extends Component {
     const currentName = e.target.name;
     const currentValue = e.target.value;
 
-    //ここで、valueが更新されない、というか消える
-    this.setState({
-      [currentName]: {
-        value: currentValue
-      }
-    });
     switch (currentName) {
       case 'firstName':
         if (currentValue !== '' && currentValue.length >= 2) {
           this.setState({
             firstName: {
+              value: currentValue,
               status: true
             }
           })
         } else {
           this.setState({
             firstName: {
+              value: currentValue,
               status: false
             }
           })
@@ -72,12 +68,14 @@ class Register extends Component {
         if (currentValue !== '' && currentValue.length >= 2) {
           this.setState({
             lastName: {
+              value: currentValue,
               status: true
             }
           })
         } else {
           this.setState({
             lastName: {
+              value: currentValue,
               status: false
             }
           })
@@ -89,12 +87,14 @@ class Register extends Component {
         if (invalidEmail && currentValue !== '') {
           this.setState({
             email: {
+              value: currentValue,
               status: true
             }
           })
         } else {
           this.setState({
             email: {
+              value: currentValue,
               status: false
             }
           })
@@ -105,12 +105,14 @@ class Register extends Component {
         if (currentValue.length >= 6) {
           this.setState({
             password: {
+              value: currentValue,
               status: true
             }
           })
         } else {
           this.setState({
             password: {
+              value: currentValue,
               status: false
             }
           })
@@ -121,12 +123,14 @@ class Register extends Component {
         if (currentValue.length >= 6 && currentValue == this.state.password.value) {
           this.setState({
             password2: {
+              value: currentValue,
               status: true
             }
           })
         } else {
           this.setState({
             password2: {
+              value: currentValue,
               status: false
             }
           })
