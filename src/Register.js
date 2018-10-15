@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Register.css';
+import validate from './validate';
 
 class Register extends Component {
   constructor(props) {
@@ -42,101 +43,13 @@ class Register extends Component {
   };
 
   onChange = e => {
-    const currentName = e.target.name;
-    const currentValue = e.target.value;
+    const { name, value } = e.target;
 
-    switch (currentName) {
-      case 'firstName':
-        if (currentValue !== '' && currentValue.length >= 2) {
-          this.setState({
-            firstName: {
-              value: currentValue,
-              status: true
-            }
-          })
-        } else {
-          this.setState({
-            firstName: {
-              value: currentValue,
-              status: false
-            }
-          })
-        }
-        break;
+    let status = validate(name, value);
+    if (name === 'password2')
+      status = status && this.state.password.value === value;
 
-      case 'lastName':
-        if (currentValue !== '' && currentValue.length >= 2) {
-          this.setState({
-            lastName: {
-              value: currentValue,
-              status: true
-            }
-          })
-        } else {
-          this.setState({
-            lastName: {
-              value: currentValue,
-              status: false
-            }
-          })
-        }
-        break;
-
-      case 'email':
-        const invalidEmail = currentValue.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
-        if (invalidEmail && currentValue !== '') {
-          this.setState({
-            email: {
-              value: currentValue,
-              status: true
-            }
-          })
-        } else {
-          this.setState({
-            email: {
-              value: currentValue,
-              status: false
-            }
-          })
-        }
-        break;
-
-      case 'password':
-        if (currentValue.length >= 6) {
-          this.setState({
-            password: {
-              value: currentValue,
-              status: true
-            }
-          })
-        } else {
-          this.setState({
-            password: {
-              value: currentValue,
-              status: false
-            }
-          })
-        }
-        break;
-
-      case 'password2':
-        if (currentValue.length >= 6 && currentValue == this.state.password.value) {
-          this.setState({
-            password2: {
-              value: currentValue,
-              status: true
-            }
-          })
-        } else {
-          this.setState({
-            password2: {
-              value: currentValue,
-              status: false
-            }
-          })
-        }
-        break;
-    }
+    this.setState( { [name]: { value, status } });
   };
 
   onSubmit = e => {
